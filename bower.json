@@ -1,0 +1,29 @@
+{
+  "name": "rvnaddrjs",
+  "description": "Ravencoin general purpose address translation.",
+  "main": "src/rvnaddr.js",
+  "authors": [
+    "Emilio Almansi <hi@ealmansi.com>",
+    "MSFTserver"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "rvncoin",
+    "ravencoin",
+    "rvn",
+    "cryptocurrency",
+    "address",
+    "encoding",
+    "translation",
+    "base58",
+    "rvn-address"
+  ],
+  "homepage": "https://github.com/raven-community/rvnaddrjs",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
