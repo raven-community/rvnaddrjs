@@ -8,7 +8,7 @@
  */
 
 var bs58check = require('bs58check')
-var rvn2addr = require('rvn2addrjs')
+//var rvn2addr = require('rvn2addrjs')
 
 /**
  * General purpose Ravencoin address detection and translation.<br />
@@ -27,7 +27,7 @@ var rvn2addr = require('rvn2addrjs')
  */
 var Format = {}
 Format.Legacy = 'legacy'
-Format.Rvn2addr = 'rvn2addr'
+//Format.Rvn2addr = 'rvn2addr'
 
 /**
  * @static
@@ -100,10 +100,10 @@ function toLegacyAddress (address) {
  * @return {string}
  * @throws {InvalidAddressError}
  */
-function toRvn2Address (address) {
-  var decoded = decodeAddress(address)
-  return encodeAsRvn2addr(decoded)
-}
+// function toRvn2Address (address) {
+//   var decoded = decodeAddress(address)
+//   return encodeAsRvn2addr(decoded)
+// }
 
 /**
  * Version byte table for base58 formats.
@@ -130,10 +130,10 @@ function decodeAddress (address) {
     return decodeBase58Address(address)
   } catch (error) {
   }
-  try {
-    return decodeRvn2Address(address)
-  } catch (error) {
-  }
+  // try {
+  //   return decodeRvn2Address(address)
+  // } catch (error) {
+  // }
   throw new InvalidAddressError()
 }
 
@@ -201,24 +201,24 @@ function decodeBase58Address (address) {
  * @return {object}
  * @throws {InvalidAddressError}
  */
-function decodeRvn2Address (address) {
-  if (address.indexOf(':') !== -1) {
-    try {
-      return decodeRvn2AddressWithPrefix(address)
-    } catch (error) {
-    }
-  } else {
-    var prefixes = ['ravencoin', 'rvntest', 'rvnreg']
-    for (var i = 0; i < prefixes.length; ++i) {
-      try {
-        var prefix = prefixes[i]
-        return decodeRvn2AddressWithPrefix(prefix + ':' + address)
-      } catch (error) {
-      }
-    }
-  }
-  throw new InvalidAddressError()
-}
+// function decodeRvn2Address (address) {
+//   if (address.indexOf(':') !== -1) {
+//     try {
+//       return decodeRvn2AddressWithPrefix(address)
+//     } catch (error) {
+//     }
+//   } else {
+//     var prefixes = ['ravencoin', 'rvntest', 'rvnreg']
+//     for (var i = 0; i < prefixes.length; ++i) {
+//       try {
+//         var prefix = prefixes[i]
+//         return decodeRvn2AddressWithPrefix(prefix + ':' + address)
+//       } catch (error) {
+//       }
+//     }
+//   }
+//   throw new InvalidAddressError()
+// }
 
 /**
  * Attempts to decode the given address assuming it is a rvn2addr address with explicit prefix.
@@ -227,32 +227,32 @@ function decodeRvn2Address (address) {
  * @return {object}
  * @throws {InvalidAddressError}
  */
-function decodeRvn2AddressWithPrefix (address) {
-  try {
-    var decoded = rvn2addr.decode(address)
-    var hash = Array.prototype.slice.call(decoded.hash, 0)
-    var type = decoded.type === 'P2PKH' ? Type.P2PKH : Type.P2SH
-    switch (decoded.prefix) {
-      case 'ravencoin':
-        return {
-          hash: hash,
-          format: Format.Rvn2addr,
-          network: Network.Mainnet,
-          type: type
-        }
-      case 'rvntest':
-      case 'rvnreg':
-        return {
-          hash: hash,
-          format: Format.Rvn2addr,
-          network: Network.Testnet,
-          type: type
-        }
-    }
-  } catch (error) {
-  }
-  throw new InvalidAddressError()
-}
+// function decodeRvn2AddressWithPrefix (address) {
+//   try {
+//     var decoded = rvn2addr.decode(address)
+//     var hash = Array.prototype.slice.call(decoded.hash, 0)
+//     var type = decoded.type === 'P2PKH' ? Type.P2PKH : Type.P2SH
+//     switch (decoded.prefix) {
+//       case 'ravencoin':
+//         return {
+//           hash: hash,
+//           format: Format.Rvn2addr,
+//           network: Network.Mainnet,
+//           type: type
+//         }
+//       case 'rvntest':
+//       case 'rvnreg':
+//         return {
+//           hash: hash,
+//           format: Format.Rvn2addr,
+//           network: Network.Testnet,
+//           type: type
+//         }
+//     }
+//   } catch (error) {
+//   }
+//   throw new InvalidAddressError()
+// }
 
 /**
  * Encodes the given decoded address into legacy format.
@@ -274,12 +274,12 @@ function encodeAsLegacy (decoded) {
  * @param {object} decoded
  * @returns {string}
  */
-function encodeAsRvn2addr (decoded) {
-  var prefix = decoded.network === Network.Mainnet ? 'ravencoin' : 'rvntest'
-  var type = decoded.type === Type.P2PKH ? 'P2PKH' : 'P2SH'
-  var hash = Uint8Array.from(decoded.hash)
-  return rvn2addr.encode(prefix, type, hash)
-}
+// function encodeAsRvn2addr (decoded) {
+//   var prefix = decoded.network === Network.Mainnet ? 'ravencoin' : 'rvntest'
+//   var type = decoded.type === Type.P2PKH ? 'P2PKH' : 'P2SH'
+//   var hash = Uint8Array.from(decoded.hash)
+//   return rvn2addr.encode(prefix, type, hash)
+// }
 
 /**
  * Returns a boolean indicating whether the address is in legacy format.
@@ -299,9 +299,9 @@ function isLegacyAddress (address) {
  * @returns {boolean}
  * @throws {InvalidAddressError}
  */
-function isRvn2Address (address) {
-  return detectAddressFormat(address) === Format.Rvn2addr
-}
+// function isRvn2Address (address) {
+//   return detectAddressFormat(address) === Format.Rvn2addr
+// }
 
 /**
  * Returns a boolean indicating whether the address is a mainnet address.
@@ -369,9 +369,9 @@ module.exports = {
   detectAddressNetwork: detectAddressNetwork,
   detectAddressType: detectAddressType,
   toLegacyAddress: toLegacyAddress,
-  toRvn2Address: toRvn2Address,
+//toRvn2Address: toRvn2Address,
   isLegacyAddress: isLegacyAddress,
-  isRvn2Address: isRvn2Address,
+//isRvn2Address: isRvn2Address,
   isMainnetAddress: isMainnetAddress,
   isTestnetAddress: isTestnetAddress,
   isP2PKHAddress: isP2PKHAddress,
