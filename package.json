@@ -56,7 +56,6 @@
     "uglify-js": "^3.4.7"
   },
   "dependencies": {
-    "bs58check": "^2.1.2",
-    "rvn2addrjs": "github:raven-community/rvn2addrjs#master"
+    "bs58check": "^2.1.2"
   }
 }

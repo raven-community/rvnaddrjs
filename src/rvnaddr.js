@@ -8,7 +8,6 @@
  */
 
 var bs58check = require('bs58check')
-//var rvn2addr = require('rvn2addrjs')
 
 /**
  * General purpose Ravencoin address detection and translation.<br />
